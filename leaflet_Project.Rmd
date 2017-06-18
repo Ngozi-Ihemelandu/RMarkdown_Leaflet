@@ -1,0 +1,28 @@
+---
+title: "R Markdown and Leaflet"
+author: "Ngozi Ihemelandu"
+date: "June 18, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## June 18, 2017
+
+```{r pressure, echo=FALSE}
+library(leaflet)
+library(maps)
+
+texasCounties <- map("county", "texas", plot = FALSE)
+lat <- texasCounties$x
+lng <- texasCounties$y
+name <- texasCounties$names
+        
+myMap = leaflet(map("state", fill = TRUE, plot = FALSE)) %>% 
+        addTiles() %>% 
+        addPolygons(fillColor = topo.colors(10, alpha=NULL), stroke=FALSE) %>%
+        addMarkers(lat=lng,lng=lat,popup=name,clusterOptions=markerClusterOptions())
+myMap
+```
